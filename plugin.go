@@ -5,16 +5,16 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/jsmzr/bootstrap-config/config"
-	"github.com/jsmzr/bootstrap-plugin/plugin"
+	config "github.com/jsmzr/bootstrap-config"
+	plugin "github.com/jsmzr/bootstrap-plugin"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 type PrometheusPlugin struct{}
 
 type PrometheusProperties struct {
-	Port int
-	Path string
+	Port int    `json:"port"`
+	Path string `json:"path"`
 }
 
 func (p *PrometheusPlugin) Order() int {
@@ -25,16 +25,17 @@ func (p PrometheusPlugin) Load() error {
 	var properties PrometheusProperties
 
 	if err := config.Resolve("prometheus", &properties); err != nil {
-		properties.Port = 9000
+		fmt.Println("[Bootstrap-Plugin-Prometheus]  Resolve prometheus config faield")
+		properties.Port = 9080
 		properties.Path = "/prometheus"
 	}
 	go func() {
 		mux := http.NewServeMux()
 		mux.Handle(properties.Path, promhttp.Handler())
-		fmt.Printf("prometheus init [:%d%s]\n", properties.Port, properties.Path)
+		fmt.Printf("[Bootstrap-Plugin-Prometheus]  Init prometheus [:%d%s]. \n", properties.Port, properties.Path)
 		err := http.ListenAndServe(":"+strconv.Itoa(properties.Port), mux)
 		if err != nil {
-			fmt.Println("Prometheus plugin init err:", err)
+			fmt.Printf("[Bootstrap-Plugin-Prometheus]  Init prometheus error: %s \n", err.Error())
 		}
 	}()
 	return nil
