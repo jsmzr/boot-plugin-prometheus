@@ -4,7 +4,7 @@ go 1.17
 
 require (
 	github.com/jsmzr/bootstrap-config v0.1.1
-	github.com/jsmzr/bootstrap-plugin v0.1.0
+	github.com/jsmzr/bootstrap-plugin v0.1.1
 	github.com/prometheus/client_golang v1.13.0
 )
 

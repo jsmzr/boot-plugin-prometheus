@@ -130,8 +130,8 @@ github.com/ianlancetaylor/demangle v0.0.0-20181102032728-5e5cf60278f6/go.mod h1:
 github.com/jpillora/backoff v1.0.0/go.mod h1:J/6gKK9jxlEcS3zixgDgUAsiuZ7yrSoa/FX5e0EB2j4=
 github.com/jsmzr/bootstrap-config v0.1.1 h1:F1RLG/O4tNXY+pOAy9IjYvCMQblsXiVJaariBeXH0vE=
 github.com/jsmzr/bootstrap-config v0.1.1/go.mod h1:RPum56DdfkCbMipzuB6o0b87HppC4EUFPULxuEbOAvE=
-github.com/jsmzr/bootstrap-plugin v0.1.0 h1:Ulciin3ZhRwFrJ1gIrOhx//pn1DKjUh3qGm+5I2y2/k=
-github.com/jsmzr/bootstrap-plugin v0.1.0/go.mod h1:nH+IQoW9iW88IvGOKgiVFch2Li9LAQF3vHiPYCJEJ2k=
+github.com/jsmzr/bootstrap-plugin v0.1.1 h1:1TPeGRT5fKDe6jPChTnD22RAY1uGZltOO8I1PDJxM0Y=
+github.com/jsmzr/bootstrap-plugin v0.1.1/go.mod h1:nH+IQoW9iW88IvGOKgiVFch2Li9LAQF3vHiPYCJEJ2k=
 github.com/json-iterator/go v1.1.6/go.mod h1:+SdeFBvtyEkXs7REEP0seUULqWtbJapLOCVDaaPEHmU=
 github.com/json-iterator/go v1.1.10/go.mod h1:KdQUCv79m/52Kvf8AW2vK1V8akMuk1QjK/uOdHXbAo4=
 github.com/json-iterator/go v1.1.11/go.mod h1:KdQUCv79m/52Kvf8AW2vK1V8akMuk1QjK/uOdHXbAo4=
