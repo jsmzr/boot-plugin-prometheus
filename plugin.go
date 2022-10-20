@@ -25,17 +25,15 @@ func (p PrometheusPlugin) Load() error {
 	var properties PrometheusProperties
 
 	if err := config.Resolve("prometheus", &properties); err != nil {
-		fmt.Println("[Bootstrap-Plugin-Prometheus]  Resolve prometheus config faield")
 		properties.Port = 9080
 		properties.Path = "/prometheus"
 	}
 	go func() {
 		mux := http.NewServeMux()
 		mux.Handle(properties.Path, promhttp.Handler())
-		fmt.Printf("[Bootstrap-Plugin-Prometheus]  Init prometheus [:%d%s]. \n", properties.Port, properties.Path)
 		err := http.ListenAndServe(":"+strconv.Itoa(properties.Port), mux)
 		if err != nil {
-			fmt.Printf("[Bootstrap-Plugin-Prometheus]  Init prometheus error: %s \n", err.Error())
+			fmt.Printf("[BOOTSTRAP-plugin]  Init prometheus error: %s \n", err.Error())
 		}
 	}()
 	return nil
