@@ -1,10 +1,10 @@
-module github.com/jsmzr/bootstrap-plugin-prometheus
+module github.com/jsmzr/boot-plugin-prometheus
 
 go 1.17
 
 require (
-	github.com/jsmzr/bootstrap-config v0.1.1
-	github.com/jsmzr/bootstrap-plugin v0.1.1
+	github.com/jsmzr/boot-config v0.1.2
+	github.com/jsmzr/boot-plugin v0.2.0
 	github.com/prometheus/client_golang v1.13.0
 )
 

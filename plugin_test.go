@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	config "github.com/jsmzr/bootstrap-config"
+	config "github.com/jsmzr/boot-config"
 )
 
 type TestConfig struct{}
@@ -17,12 +17,16 @@ type TestContainer struct {
 	content string
 }
 
-var testProperties = PrometheusProperties{Port: 9000, Path: "/mertrics"}
+var testPort = 9000
+var testPath = "/mertrics"
+var testProperties = PrometheusProperties{Port: &testPort, Path: &testPath}
 
 func (t *TestConfig) Load(filename string) (config.Configer, error) {
 	data := make(map[string]PrometheusProperties)
 	data["prometheus"] = testProperties
-	configJson, toJsonErr := json.Marshal(data)
+	resouce := make(map[string]interface{})
+	resouce["boot"] = data
+	configJson, toJsonErr := json.Marshal(resouce)
 	if toJsonErr != nil {
 		return nil, toJsonErr
 	}
@@ -63,7 +67,7 @@ func TestLoadByConfig(t *testing.T) {
 	}
 	// TODO maybe > 2s
 	time.Sleep(2 * time.Second)
-	if !checkMertrics(testProperties.Port, testProperties.Path) {
+	if !checkMertrics(*testProperties.Port, *testProperties.Path) {
 		t.Fatal("check should be true")
 	}
 
