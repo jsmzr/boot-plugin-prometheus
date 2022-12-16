@@ -5,48 +5,29 @@ import (
 	"net/http"
 	"strconv"
 
-	config "github.com/jsmzr/boot-config"
 	plugin "github.com/jsmzr/boot-plugin"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
+	"github.com/spf13/viper"
 )
 
 type PrometheusPlugin struct{}
 
-type PrometheusProperties struct {
-	Port    *int
-	Path    *string
-	Enabled *bool
-}
+const configPrefix = "boot.prometheus"
 
-const prefix = "boot.prometheus"
+var defaultConfig map[string]interface{} = map[string]interface{}{"enabled": true, "order": 30, "port": 9080, "path": "/prometheus"}
 
 func (p *PrometheusPlugin) Order() int {
-	return 200
+	return viper.GetInt(configPrefix + ".order")
 }
 
 func (p *PrometheusPlugin) Enabled() bool {
-	enabled, ok := config.Get(prefix + ".enabled")
-	if ok {
-		return enabled.Bool()
-	}
-	return true
+	return viper.GetBool(configPrefix + ".enabled")
 }
 
 func (p PrometheusPlugin) Load() error {
-	var properties PrometheusProperties
-	var path string
-	var port int
-	_ = config.Resolve(prefix, &properties)
-	if properties.Path == nil {
-		path = "/prometheus"
-	} else {
-		path = *properties.Path
-	}
-	if properties.Port == nil {
-		port = 9080
-	} else {
-		port = *properties.Port
-	}
+
+	path := viper.GetString(configPrefix + ".path")
+	port := viper.GetInt(configPrefix + ".port")
 	fmt.Printf("[BOOT-plugin]  start prometheus by [:%d%s]\n", port, path)
 	go func() {
 		mux := http.NewServeMux()
@@ -60,5 +41,8 @@ func (p PrometheusPlugin) Load() error {
 }
 
 func init() {
+	for key := range defaultConfig {
+		viper.SetDefault(configPrefix+"."+key, defaultConfig[key])
+	}
 	plugin.Register("prometheus", &PrometheusPlugin{})
 }
